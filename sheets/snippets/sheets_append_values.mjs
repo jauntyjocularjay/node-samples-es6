@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
+// modified to use es6
+
+import { GoogleAuth } from "google-auth-library";
+import { google } from "googleapis";
+
 // [START sheets_append_values]
 /**
  * Appends values in a Spreadsheet.
@@ -24,40 +29,39 @@
  * @return {obj} spreadsheet information
  */
 async function appendValues(spreadsheetId, range, valueInputOption, _values) {
-  const {GoogleAuth} = require('google-auth-library');
-  const {google} = require('googleapis');
-
-  const auth = new GoogleAuth({
-    scopes: 'https://www.googleapis.com/auth/spreadsheets',
-  });
-
-  const service = google.sheets({version: 'v4', auth});
-  let values = [
-    [
-      // Cell values ...
-    ],
-    // Additional rows ...
-  ];
-  // [START_EXCLUDE silent]
-  values = _values;
-  // [END_EXCLUDE]
-  const resource = {
-    values,
-  };
-  try {
-    const result = await service.spreadsheets.values.append({
-      spreadsheetId,
-      range,
-      valueInputOption,
-      resource,
+    const auth = new GoogleAuth({
+        scopes: "https://www.googleapis.com/auth/spreadsheets",
     });
-    console.log(`${result.data.updates.updatedCells} cells appended.`);
-    return result;
-  } catch (err) {
-    // TODO (developer) - Handle exception
-    throw err;
-  }
+
+    const service = google.sheets({ version: "v4", auth });
+    let values = [
+        [
+            // Cell values ...
+        ],
+        // Additional rows ...
+    ];
+    // [START_EXCLUDE silent]
+    values = _values;
+    // [END_EXCLUDE]  f
+    const resource = {
+        values,
+    };
+    try {
+        const result = await service.spreadsheets.values.append({
+            spreadsheetId,
+            range,
+            valueInputOption,
+            resource,
+        });
+        console.log(`${result.data.updates.updatedCells} cells appended.`);
+        return result;
+    } catch (err) {
+        // TODO (developer) - Handle exception
+        throw err;
+    }
 }
 // [END sheets_append_values]
 
-module.exports = {appendValues};
+export { appendValues };
+
+// import { appendValues } from './path/to/sheets/snippets/sheets_append_values.mjs' 
