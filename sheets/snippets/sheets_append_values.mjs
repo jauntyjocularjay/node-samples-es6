@@ -42,7 +42,7 @@ async function appendValues(spreadsheetId, range, valueInputOption, _values) {
     ];
     // [START_EXCLUDE silent]
     values = _values;
-    // [END_EXCLUDE]  f
+    // [END_EXCLUDE]  
     const resource = {
         values,
     };
